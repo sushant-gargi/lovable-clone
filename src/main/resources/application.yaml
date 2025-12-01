@@ -1,3 +1,4 @@
 spring:
   application:
     name: lovable-clone
+    description: This is a Lovable clone project
