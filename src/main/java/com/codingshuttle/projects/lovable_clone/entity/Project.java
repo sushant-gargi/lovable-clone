@@ -1,9 +1,10 @@
 package com.codingshuttle.projects.lovable_clone.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
@@ -15,13 +16,21 @@ import java.time.Instant;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name = "projects")
 public class Project {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     // Unique identifier of the project (primary key in DB)
-
+    @Column(nullable = false)
     String name;
     // Name of the project (given by the user)
-
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
     User owner;
     // The user who created and owns the project
 
@@ -29,10 +38,10 @@ public class Project {
     // Visibility of the project:
     // false = private (only owner can view)
     // true  = public  (anyone can view the project)
-
+    @CreationTimestamp
     Instant createdAt;
     // Timestamp when the project was created
-
+    @UpdateTimestamp
     Instant updatedAt;
     // Timestamp when the project details were last updated
 

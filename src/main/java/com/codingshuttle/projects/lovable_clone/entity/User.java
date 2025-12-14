@@ -1,9 +1,10 @@
 package com.codingshuttle.projects.lovable_clone.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
@@ -14,9 +15,16 @@ import java.time.Instant;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name = "users")
 //Used to make all the fields as Private to achieve encapsulation
 public class User // User/Person who is using the Lovable application
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     // Primary key for the user.
     // Unique identifier used to link with other tables (e.g., Project, ChatSession)
@@ -34,10 +42,10 @@ public class User // User/Person who is using the Lovable application
 
     String avatarUrl;
     // URL of the user's profile picture stored in MinIO or external storage
-
+    @CreationTimestamp
     Instant createdAt;
     // Timestamp when the user account was created
-
+    @UpdateTimestamp
     Instant updatedAt;
     // Timestamp when the user's profile was last updated
 
