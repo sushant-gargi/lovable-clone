@@ -29,18 +29,15 @@ public class User // User/Person who is using the Lovable application
     // Primary key for the user.
     // Unique identifier used to link with other tables (e.g., Project, ChatSession)
 
-    String email;
+    String username;
     // User's email address.
     // Typically unique and used as login identifier
 
-    String passwordHash;
+    String password;
     // Hashed password for authentication.
     // Never store plain-text passwords.
 
     String name;
-    // Full name or display name of the user
-
-    String avatarUrl;
     // URL of the user's profile picture stored in MinIO or external storage
     @CreationTimestamp
     Instant createdAt;
