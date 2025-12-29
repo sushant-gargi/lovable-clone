@@ -12,13 +12,15 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface ProjectMapper {
+public interface ProjectMemberMapper {
 
-    ProjectResponse toProjectResponse(Project project);
+    @Mapping(target = "userId", source = "id")
+    @Mapping(target = "projectRole", constant = "OWNER")
+    MemberResponse toProjectMemberResponseFromOwner(User owner);
 
-    //@Mapping(target = "projectName", source = "name")
-    ProjectSummaryResponse toProjectSummaryResponse(Project project);
-
-    List<ProjectSummaryResponse> toListOfProjectSummaryResponse(List<Project> projects);
-
+    @Mapping(target = "userId", source = "user.id")
+    @Mapping(target = "email", source = "user.email")
+    @Mapping(target = "name", source = "user.name")
+    MemberResponse toProjectMemberResponseFromMember(ProjectMember projectMember);
 }
+

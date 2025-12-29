@@ -1,8 +1,7 @@
 package com.codingshuttle.projects.lovable_clone.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Embeddable;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 /**
@@ -16,9 +15,11 @@ import lombok.experimental.FieldDefaults;
  * Together they form a unique key for ProjectMember.
  */
 
+@Embeddable
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProjectMemberId {
     Long projectId;
     // ID of the project to which the member belongs
