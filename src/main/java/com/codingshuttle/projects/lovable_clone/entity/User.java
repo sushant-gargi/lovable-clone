@@ -5,13 +5,13 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.util.Collection;
+import java.util.List;
 
-/**
- * Represents a user of the Lovable application.
- * Stores login, profile, and auditing information.
- */
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -20,33 +20,25 @@ import java.time.Instant;
 @NoArgsConstructor
 @Builder
 @Table(name = "users")
-//Used to make all the fields as Private to achieve encapsulation
-public class User // User/Person who is using the Lovable application
-{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class User implements UserDetails {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    // Primary key for the user.
-    // Unique identifier used to link with other tables (e.g., Project, ChatSession)
 
     String username;
-    // User's email address.
-    // Typically unique and used as login identifier
-
     String password;
-    // Hashed password for authentication.
-    // Never store plain-text passwords.
-
     String name;
-    // URL of the user's profile picture stored in MinIO or external storage
+
     @CreationTimestamp
     Instant createdAt;
-    // Timestamp when the user account was created
+
     @UpdateTimestamp
     Instant updatedAt;
-    // Timestamp when the user's profile was last updated
 
-    Instant deletedAt;
-    // Soft delete timestamp.
-    // If not null → user is considered deleted (inactive) but record remains in DB
+    Instant deletedAt; //soft delete
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
 }
