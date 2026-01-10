@@ -1,6 +1,6 @@
 package com.codingshuttle.projects.lovable_clone.service.impl;
 
-import com.codingshuttle.projects.lovable_clone.dto.subscription.PlanLimitResponse;
+import com.codingshuttle.projects.lovable_clone.dto.subscription.PlanLimitsResponse;
 import com.codingshuttle.projects.lovable_clone.dto.subscription.UsageTodayResponse;
 import com.codingshuttle.projects.lovable_clone.service.UsageService;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class UsageServiceImpl implements UsageService {
     }
 
     @Override
-    public PlanLimitResponse getCurrentSubscriptionLimitsOfUser(Long userId) {
+    public PlanLimitsResponse getCurrentSubscriptionLimitsOfUser(Long userId) {
         return null;
     }
 }

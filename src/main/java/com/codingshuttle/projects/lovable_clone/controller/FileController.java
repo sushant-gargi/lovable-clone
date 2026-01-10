@@ -17,17 +17,22 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/projects/{projectId}/files")
 public class FileController {
+
     private final FileService fileService;
 
     @GetMapping
     public ResponseEntity<List<FileNode>> getFileTree(@PathVariable Long projectId) {
-        Long userId=1L;
-        return ResponseEntity.ok(fileService.getFileTree(projectId,userId));
+        Long userId = 1L;
+        return ResponseEntity.ok(fileService.getFileTree(projectId, userId));
     }
 
-    @GetMapping("/{*path}")
-    public ResponseEntity<FileContentResponse> getFile(@PathVariable Long projectId, @PathVariable String path) {
-        Long userId=1L;
-        return ResponseEntity.ok(fileService.getFileContent(projectId,path,userId));
+    @GetMapping("/{*path}") // /src/hooks/get-user-hook.jsx
+    public ResponseEntity<FileContentResponse> getFile(
+            @PathVariable Long projectId,
+            @PathVariable String path
+    ) {
+        Long userId = 1L;
+        return ResponseEntity.ok(fileService.getFileContent(projectId, path, userId));
     }
+
 }
