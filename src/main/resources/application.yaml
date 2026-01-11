@@ -28,5 +28,3 @@ stripe:
   webhook:
     secret: whsec_55fceb6140aa36aaa94f14fd170eb57cfb9a0d4fabacabf17dcb7791b7994a72
 client.url: http://localhost:8080
-
-# acct_1So1yVAZtdRpxJsn
