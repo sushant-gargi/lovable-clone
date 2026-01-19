@@ -4,8 +4,8 @@ spring:
     description: this is application
 
   datasource:
-    url: jdbc:postgresql://localhost:9000/testDB
-    username: testUser
+    url: jdbc:postgresql://localhost:9010/pgvector-test
+    username: user
     password: password
     driver-class-name: org.postgresql.Driver
 
@@ -19,6 +19,15 @@ spring:
         format_sql: true
         jdbc: time_zone=Asia/Kolkata
 
+  ai:
+    openai:
+      api-key: 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
+      base-url: https://openrouter.ai/api
+      chat:
+        options:
+          model: xiaomi/mimo-v2-flash:free
+          temperature: 0.0
+
 jwt:
   secret-key: as9b7aodlbjfkluosfd789ujeklfnlsduf90b8ha908w74tuqijvlckajdl
 
@@ -27,4 +36,16 @@ stripe:
     secret: sk_test_51So1yVAZtdRpxJsnkXg7ddVlYwU63vKuv2gekt7hezFL7PE68QsENyrMr2tjjIMUe1ANqkO7M7UMEuqAgq0kxLdV00SYVwNFRx
   webhook:
     secret: whsec_55fceb6140aa36aaa94f14fd170eb57cfb9a0d4fabacabf17dcb7791b7994a72
+
 client.url: http://localhost:8080
+
+logging:
+  level:
+    org.springframework.ai:
+      chat.client: DEBUG
+
+minio:
+  url: http://localhost:9000          # or minio:9000 if inside docker network
+  access-key: minioadmin
+  secret-key: minioadmin123
+  project-bucket: projects
