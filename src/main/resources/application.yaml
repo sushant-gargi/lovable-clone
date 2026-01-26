@@ -25,7 +25,7 @@ spring:
       base-url: https://openrouter.ai/api
       chat:
         options:
-          model: xiaomi/mimo-v2-flash:free
+          model: mistralai/devstral-2512:free
           temperature: 0.0
 
 jwt:
@@ -45,7 +45,7 @@ logging:
       chat.client: DEBUG
 
 minio:
-  url: http://localhost:9000          # or minio:9000 if inside docker network
+  url: http://localhost:9011         # or minio:9000 if inside docker network
   access-key: minioadmin
   secret-key: minioadmin123
   project-bucket: projects

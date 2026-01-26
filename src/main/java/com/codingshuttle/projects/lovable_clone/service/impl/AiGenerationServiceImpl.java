@@ -1,6 +1,8 @@
 package com.codingshuttle.projects.lovable_clone.service.impl;
 
 import com.codingshuttle.projects.lovable_clone.llm.PromptUtils;
+import com.codingshuttle.projects.lovable_clone.llm.advisors.FileTreeContextAdvisor;
+import com.codingshuttle.projects.lovable_clone.llm.tools.CodeGenerationTools;
 import com.codingshuttle.projects.lovable_clone.security.AuthUtil;
 import com.codingshuttle.projects.lovable_clone.service.AiGenerationService;
 import com.codingshuttle.projects.lovable_clone.service.ProjectFileService;
@@ -25,6 +27,7 @@ public class AiGenerationServiceImpl implements AiGenerationService {
     private final ChatClient chatClient;
     private final AuthUtil authUtil;
     private final ProjectFileService projectFileService;
+    private final FileTreeContextAdvisor fileTreeContextAdvisor;
 
     private static final Pattern FILE_TAG_PATTERN = Pattern.compile("<file path=\"([^\"]+)\">(.*?)</file>", Pattern.DOTALL);
 
@@ -41,11 +44,15 @@ public class AiGenerationServiceImpl implements AiGenerationService {
 
         StringBuilder fullResponseBuffer = new StringBuilder();
 
+        CodeGenerationTools codeGenerationTools = new CodeGenerationTools(projectFileService, projectId);
+
         return chatClient.prompt()
                 .system(PromptUtils.CODE_GENERATION_SYSTEM_PROMPT)
                 .user(userMessage)
+                .tools(codeGenerationTools)
                 .advisors(advisorSpec -> {
                             advisorSpec.params(advisorParams);
+                            advisorSpec.advisors(fileTreeContextAdvisor);
                         }
                 )
                 .stream()
