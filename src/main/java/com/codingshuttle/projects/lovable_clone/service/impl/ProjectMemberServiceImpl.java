@@ -21,7 +21,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,9 +38,6 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
     @Override
     @PreAuthorize("@security.canViewMembers(#projectId)")
     public List<MemberResponse> getProjectMembers(Long projectId) {
-        Long userId = authUtil.getCurrentUserId();
-        Project project = getAccessibleProjectById(projectId, userId);
-
         return projectMemberRepository.findByIdProjectId(projectId)
                 .stream()
                 .map(projectMemberMapper::toProjectMemberResponseFromMember)

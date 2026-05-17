@@ -3,7 +3,6 @@ package com.codingshuttle.projects.lovable_clone.controller;
 import com.codingshuttle.projects.lovable_clone.dto.subscription.PlanLimitsResponse;
 import com.codingshuttle.projects.lovable_clone.dto.subscription.UsageTodayResponse;
 import com.codingshuttle.projects.lovable_clone.service.UsageService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +19,8 @@ public class UsageController {
     @GetMapping("/today")
     public ResponseEntity<UsageTodayResponse> getTodayUsage() {
         Long userId = 1L;
-        return ResponseEntity.ok(usageService.getTodayUsageOfUser(userId));
+//        return ResponseEntity.ok(usageService.getTodayUsageOfUser(userId));
+        return null;
     }
 
-    @GetMapping("/limits")
-    public ResponseEntity<PlanLimitsResponse> getPlanLimits() {
-        Long userId = 1L;
-        return ResponseEntity.ok(usageService.getCurrentSubscriptionLimitsOfUser(userId));
-    }
 }

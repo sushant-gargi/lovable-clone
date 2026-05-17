@@ -21,11 +21,11 @@ spring:
 
   ai:
     openai:
-      api-key: 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
+      api-key: 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
       base-url: https://openrouter.ai/api
       chat:
         options:
-          model: arcee-ai/trinity-mini:free
+          model: openai/gpt-oss-120b:free
           temperature: 0.0
 
 jwt:

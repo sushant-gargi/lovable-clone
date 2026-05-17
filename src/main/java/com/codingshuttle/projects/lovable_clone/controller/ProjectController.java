@@ -3,8 +3,8 @@ package com.codingshuttle.projects.lovable_clone.controller;
 import com.codingshuttle.projects.lovable_clone.dto.project.ProjectRequest;
 import com.codingshuttle.projects.lovable_clone.dto.project.ProjectResponse;
 import com.codingshuttle.projects.lovable_clone.dto.project.ProjectSummaryResponse;
+import com.codingshuttle.projects.lovable_clone.security.AuthUtil;
 import com.codingshuttle.projects.lovable_clone.service.ProjectService;
-import com.codingshuttle.projects.lovable_clone.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectResponse> getProjectById(@PathVariable Long id) {
+    public ResponseEntity<ProjectSummaryResponse> getProjectById(@PathVariable Long id) {
         return ResponseEntity.ok(projectService.getUserProjectById(id));
     }
 
