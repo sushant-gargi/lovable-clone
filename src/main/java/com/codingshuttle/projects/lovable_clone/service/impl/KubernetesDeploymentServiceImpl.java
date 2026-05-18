@@ -8,6 +8,7 @@ import io.fabric8.kubernetes.client.dsl.ExecListener;
 import io.fabric8.kubernetes.client.dsl.ExecWatch;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class KubernetesDeploymentServiceImpl implements DeploymentService {
 
     private final KubernetesClient client;
+    private final StringRedisTemplate redisTemplate;
 
     private static final String NAMESPACE = "shuttle-apps";
     private static final String POOL_LABEL = "status";
@@ -97,6 +99,7 @@ public class KubernetesDeploymentServiceImpl implements DeploymentService {
         String podIp = pod.getStatus().getPodIP();
         if (podIp == null) throw new RuntimeException("Pod is running but has no IP!");
 
+        redisTemplate.opsForValue().set("route:" + domain, podIp + ":5173", 6, TimeUnit.HOURS);
     }
 
 
